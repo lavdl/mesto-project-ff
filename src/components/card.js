@@ -1,5 +1,4 @@
-import { initialCards } from "./cards";
-export function createCard(element, deleteCard, cardLike, imgAppr) {
+export function createCard(element, deleteCard, likeCard, apprImg) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
   const cardImage = cardElement.querySelector('.card__image');
@@ -13,25 +12,19 @@ export function createCard(element, deleteCard, cardLike, imgAppr) {
     deleteCard(cardElement);
   });
   likeButton.addEventListener("click", () => {
-    cardLike(likeButton);
+    likeCard(likeButton);
   });
-  cardImage.addEventListener('click', imgAppr);
+  cardImage.addEventListener('click', () => {
+    apprImg(element);
+  });
   return cardElement;
-};
-
-export function loadCards(initialCards, deleteCard, cardLike, imgAppr) {
-  initialCards.forEach((element) => {
-    const cardContainer = document.querySelector('.places__list');
-    const cardElement = createCard(element, deleteCard, cardLike, imgAppr);
-    cardContainer.append(cardElement);
-  });
 };
 
 export const deleteCard = (cardElement) => {
   cardElement.closest(".places__item").remove();
 };
 
-export function cardLike (likeButton) {
+export function likeCard (likeButton) {
   likeButton.classList.toggle('card__like-button_is-active');
 };
 

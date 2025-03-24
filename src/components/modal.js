@@ -1,25 +1,25 @@
-export function popupOpen (popupName) {
+let openedPopup = '';
+
+export function openPopup (popupName) {
+  openedPopup = popupName;
   popupName.classList.add('popup_is-opened');
-  document.addEventListener('keydown', function (evt) {
-    popupCloseEscape(evt, popupName);
-  });
+  document.addEventListener('keydown', closePopupEscape);
 };
 
-export function popupClose (popupName) {
+export function closePopup (popupName) {
+  openedPopup = '';
   popupName.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', function (evt) {
-    popupCloseEscape(evt, popupName);
-  });
+  document.removeEventListener('keydown', closePopupEscape);
 };
 
-export function popupCloseOverlay (evt) {
+export function closePopupOverlay (evt) {
   if(evt.currentTarget === evt.target) {
-    popupClose(evt.currentTarget);
+    closePopup(evt.currentTarget);  
   }
 };
 
-export function popupCloseEscape (evt, popupName) {
+export function closePopupEscape (evt) {
   if (evt.key === 'Escape') {
-    popupClose(popupName);
+    closePopup(openedPopup);
   }
 };
