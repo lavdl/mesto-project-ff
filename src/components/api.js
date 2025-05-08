@@ -73,7 +73,7 @@ export function addNewCardApi (newCardName, newCardUrl) {
   });
 }
 
-export function updateAvatar (updateAvatarUrl, profileAvatar) {
+export function updateAvatar (updateAvatarUrl) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
@@ -88,7 +88,7 @@ export function updateAvatar (updateAvatarUrl, profileAvatar) {
     return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then((data) => {
-    profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+    return data
   })
   .catch((err) => {
     console.log(err)

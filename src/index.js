@@ -139,7 +139,10 @@ popupNewCard.addEventListener('submit', handleFormAddCardSubmit);
 function handleFormUpdateAvatarSubmit(evt) {
   evt.preventDefault();
   renderLoading(true, formUpdateAvatar);
-  updateAvatar(updateAvatarUrl, profileAvatar)
+  updateAvatar(updateAvatarUrl)
+  .then((data) => {
+    profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+  })
   .finally(() => {
     renderLoading(false, formUpdateAvatar);
     formUpdateAvatar.reset();
