@@ -12,7 +12,7 @@ import './pages/index.css';
 import {initialCards} from './components/cards.js';
 import {createCard, deleteCard, likeCard} from './components/card.js';
 import {openPopup, closePopup, closePopupOverlay, closePopupEscape} from './components/modal.js';
-import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation, clearValidation, validationConfig} from './components/validation.js';
+import {enableValidation, clearValidation, validationConfig} from './components/validation.js';
 import {getUser, getCardsList, editProfile, addNewCardApi, updateAvatar, deleteCardApi, likeApi} from './components/api.js';
 
 const editButton = document.querySelector('.profile__edit-button');
