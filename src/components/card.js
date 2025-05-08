@@ -19,8 +19,6 @@ export function createCard(element, deleteCard, likeCard, apprImg) {
   cardImage.alt = element.name;
   cardTitle.textContent = element.name;
   likeCounter.textContent = element.likes;
-  console.log(element.ownerId)
-  console.log(ownerId)
   if (ownerId != '9ea42ce8114de9903985c7c8') {
     deleteButton.style.display = 'none';
   }
