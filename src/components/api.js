@@ -6,28 +6,25 @@ const config = {
   }
 }
 
+function checkResponse (res) {
+  if(res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 export function getUser () {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  .then((res) => checkResponse(res));
 }
 
 export function getCardsList () {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
+  .then((res) => checkResponse(res));
 }
 
 export function editProfile (nameInput, jobInput) {
@@ -39,15 +36,7 @@ export function editProfile (nameInput, jobInput) {
       about: jobInput.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err)
-  });
+  .then((res) => checkResponse(res));
 }
 
 export function addNewCardApi (newCardName, newCardUrl) {
@@ -59,18 +48,10 @@ export function addNewCardApi (newCardName, newCardUrl) {
       link: newCardUrl.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then((res) => checkResponse(res))
   .then((data) => {
     return data;
   })
-  .catch((err) => {
-    console.log(err)
-  });
 }
 
 export function updateAvatar (updateAvatarUrl) {
@@ -81,18 +62,10 @@ export function updateAvatar (updateAvatarUrl) {
       avatar: updateAvatarUrl.value
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then((res) => checkResponse(res))
   .then((data) => {
     return data
   })
-  .catch((err) => {
-    console.log(err)
-  });
 }
 
 export function deleteCardApi (cardId) {
@@ -100,15 +73,7 @@ export function deleteCardApi (cardId) {
     method: 'DELETE',
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err)
-  });
+  .then((res) => checkResponse(res))
 }
 
 export function likeApi (currentIsLiked, cardId) {
@@ -117,36 +82,18 @@ export function likeApi (currentIsLiked, cardId) {
       method: 'PUT',
       headers: config.headers
     })
-    .then((res) => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then((res) => checkResponse(res))
     .then((data) => {
-      currentIsLiked = true;
-      return data.likes;
+      return {likes: data.likes, isLikedApi: true};
     })
-    .catch((err) => {
-      console.log(err)
-    });
   } else {
     return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: config.headers
     })
-    .then((res) => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then((res) => checkResponse(res))
     .then((data) => {
-      currentIsLiked = false;
-      return data.likes;
+      return {likes: data.likes, isLikedApi: false};
     })
-    .catch((err) => {
-      console.log(err)
-    });
   }
 }
