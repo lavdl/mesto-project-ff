@@ -1,0 +1,11 @@
+.card__like-const {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.card__like-counter {
+  font-size: 13px;
+  text-align: center;
+  line-height: 16px;
+}
