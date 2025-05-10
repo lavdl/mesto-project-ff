@@ -181,15 +181,15 @@ function handleFormUpdateAvatarSubmit(evt) {
   updateAvatar(updateAvatarUrl)
   .then((data) => {
     profileAvatar.style.backgroundImage = `url(${data.avatar})`;
+    formUpdateAvatar.reset();
+    closePopup(popupTypeEditAvatar);
+    clearValidation(formUpdateAvatar, validationConfig);
   })
   .catch((err) => {
     console.log(err)
   })
   .finally(() => {
     renderLoading(false, formUpdateAvatar);
-    formUpdateAvatar.reset();
-    closePopup(popupTypeEditAvatar);
-    clearValidation(formUpdateAvatar, validationConfig);
   })
 }
 
@@ -228,7 +228,6 @@ function deleteCard (cardElement, cardId) {
 function handleFormDeleteCardSubmit(evt) {
    evt.preventDefault();
    onDeleteCard(currentCard, currentCardId)
-   closePopup(popupDeleteCard);
 }
 
 popupDeleteCard.addEventListener('submit', handleFormDeleteCardSubmit);
